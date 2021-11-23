@@ -1,22 +1,21 @@
 import React from "react";
 import '../css/ToDoSearch.css'
 
-function ToDoSearch() {
-  const [ searchValue, setSearchValue ] = React.useState('');
+function ToDoSearch({ searchValue, setSearchValue }) {
 
   const onChangeValueSearch = (event) => {
+    console.log(event.target.value);
     setSearchValue(event.target.value);
   }
 
-  return [
+  return (
     <input
       className="toDoSearch"
       placeholder="Add a to-do"
       value={searchValue}
       onChange={onChangeValueSearch}
-    />,
-    <p>{searchValue}</p>
-  ];
+    />
+  );
 }
 
 export { ToDoSearch };
