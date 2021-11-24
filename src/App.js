@@ -33,15 +33,29 @@ function App() {
 
   let searchedToDos = [];
 
-  if (searchValue.length == 0) {
+  if (searchValue.length === 0) {
     searchedToDos = toDos;
   } else {
     searchedToDos = toDos.filter(toDo => {
       const toDoText = toDo.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
       return toDoText.includes(searchText);
-    })
+    });
   }
+
+  const completeToDo = (text) => {
+    const toDoIndex = toDos.findIndex(todo => todo.text === text);
+    const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
+    newToDos[toDoIndex].completed = true;
+    setToDos(newToDos);
+  };
+
+  const deleteToDo = (text) => {
+    const toDoIndex = toDos.findIndex(todo => todo.text === text);
+    const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
+    newToDos.splice(toDoIndex, 1);
+    setToDos(newToDos);
+  };
 
   return (
     <React.Fragment>
@@ -59,6 +73,8 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeToDo(todo.text)}
+            onDelete={() => deleteToDo(todo.text)}
           />
         ))}
       </ToDoList>
