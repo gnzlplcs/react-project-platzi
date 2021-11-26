@@ -2,26 +2,37 @@
 import React from 'react';
 import { AppUI } from './AppUI';
 
-const defaultToDos = [{
-    text: 'Tomar curso de Linux',
-    completed: false
-  },
-  {
-    text: 'Tomar curso de React',
-    completed: true
-  },
-  {
-    text: 'Sacar a Wanda',
-    completed: false
-  },
-  {
-    text: 'Comprar gaseosa',
-    completed: false
-  },
-];
+// const defaultToDos = [{
+//     text: 'Tomar curso de Linux',
+//     completed: false
+//   },
+//   {
+//     text: 'Tomar curso de React',
+//     completed: true
+//   },
+//   {
+//     text: 'Sacar a Wanda',
+//     completed: false
+//   },
+//   {
+//     text: 'Comprar gaseosa',
+//     completed: false
+//   },
+// ];
 
 function App() {
-  const [ toDos, setToDos ] = React.useState(defaultToDos);
+  // creando todos en el local storage
+  const localStorageToDos = localStorage.getItem('TODOS_V1', );
+  let parsedToDos;
+
+  if (!localStorageToDos) {
+    localStorage.setItem('TODOS_V1', '[]');
+    parsedToDos = [];
+  } else {
+    parsedToDos = JSON.parse(localStorageToDos);
+  }
+
+  const [ toDos, setToDos ] = React.useState(parsedToDos);
   const [ searchValue, setSearchValue ] = React.useState('');
 
   const completedToDos = toDos.filter(todo => todo.completed).length;
@@ -39,18 +50,24 @@ function App() {
     });
   }
 
+  const saveToDos = newToDos => {
+    const stringifiedToDos = JSON.stringify(newToDos);
+    localStorage.setItem('TODOS_V1', stringifiedToDos);
+    setToDos(newToDos);
+  };
+
   const completeToDo = (text) => {
     const toDoIndex = toDos.findIndex(todo => todo.text === text);
     const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
     newToDos[toDoIndex].completed = true;
-    setToDos(newToDos);
+    saveToDos(newToDos);
   };
 
   const deleteToDo = (text) => {
     const toDoIndex = toDos.findIndex(todo => todo.text === text);
     const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
     newToDos.splice(toDoIndex, 1);
-    setToDos(newToDos);
+    saveToDos(newToDos);
   };
 
   return (
