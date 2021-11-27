@@ -2,37 +2,35 @@
 import React from 'react';
 import { AppUI } from './AppUI';
 
-// const defaultToDos = [{
-//     text: 'Tomar curso de Linux',
-//     completed: false
-//   },
-//   {
-//     text: 'Tomar curso de React',
-//     completed: true
-//   },
-//   {
-//     text: 'Sacar a Wanda',
-//     completed: false
-//   },
-//   {
-//     text: 'Comprar gaseosa',
-//     completed: false
-//   },
-// ];
-
-function App() {
+function useLocalStorage(itemName, initialValue) {
   // creando todos en el local storage
-  const localStorageToDos = localStorage.getItem('TODOS_V1', );
-  let parsedToDos;
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (!localStorageToDos) {
-    localStorage.setItem('TODOS_V1', '[]');
-    parsedToDos = [];
+  if (!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
-    parsedToDos = JSON.parse(localStorageToDos);
+    parsedItem = JSON.parse(localStorageItem);
   }
 
-  const [ toDos, setToDos ] = React.useState(parsedToDos);
+  const [ item, setItem ] = React.useState(parsedItem);
+
+  const saveItem = newItem => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [
+    item,
+    saveItem,
+  ];
+};
+
+function App() {
+  const [ toDos, saveToDos ] = useLocalStorage('TODOS_V1', []);
+
   const [ searchValue, setSearchValue ] = React.useState('');
 
   const completedToDos = toDos.filter(todo => todo.completed).length;
@@ -49,12 +47,6 @@ function App() {
       return toDoText.includes(searchText);
     });
   }
-
-  const saveToDos = newToDos => {
-    const stringifiedToDos = JSON.stringify(newToDos);
-    localStorage.setItem('TODOS_V1', stringifiedToDos);
-    setToDos(newToDos);
-  };
 
   const completeToDo = (text) => {
     const toDoIndex = toDos.findIndex(todo => todo.text === text);
