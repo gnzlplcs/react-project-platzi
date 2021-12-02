@@ -2,12 +2,14 @@ import React from "react";
 import './CreateToDoButton.css';
 
 function CreateToDoButton(props) {
-  const onCLickButton = (msg) => alert(msg);
+  const onCLickButton = () => {
+    props.setOpenModal(true);
+  };
 
   return (
     <button
       className="createToDoButton"
-      onClick={() => onCLickButton('alert message')}
+      onClick={onCLickButton}
     >+</button>
   )
 }
