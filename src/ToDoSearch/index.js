@@ -12,7 +12,7 @@ function ToDoSearch() {
   return (
     <input
       className="toDoSearch"
-      placeholder="Add a to-do"
+      placeholder="Busca entre tus to-dos"
       value={searchValue}
       onChange={onChangeValueSearch}
     />
