@@ -28,6 +28,15 @@ function ToDoProvider(props) {
     });
   }
 
+  const addToDo = (text) => {
+    const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
+    newToDos.push({
+      completed: false,
+      text,
+    })
+    saveToDos(newToDos);
+  };
+
   const completeToDo = (text) => {
     const toDoIndex = toDos.findIndex(todo => todo.text === text);
     const newToDos = [ ...toDos]; // se crea una nueva lista de to-dos para no crashear el estado inicial
@@ -51,6 +60,7 @@ function ToDoProvider(props) {
       searchValue,
       setSearchValue,
       searchedToDos,
+      addToDo,
       completeToDo,
       deleteToDo,
       openModal,
