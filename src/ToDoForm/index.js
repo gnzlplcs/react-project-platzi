@@ -16,14 +16,6 @@ function ToDoForm() {
     setOpenModal(false);
   };
 
-  const onCancel = () => {
-
-  };
-
-  const onAdd = () => {
-
-  };
-
   return (
     <form onSubmit={onSubmit}>
       <label>Escribe un nuevo to-do</label>
@@ -36,14 +28,12 @@ function ToDoForm() {
         <button
           type="button"
           className="TodoForm-button TodoForm-button--cancel"
-          onClick={onCancel}
         >
           Cancelar
         </button>
         <button
           type="submit"
           className="TodoForm-button TodoForm-button--add"
-          onClick={onAdd}
         >
           Añadir
         </button>
