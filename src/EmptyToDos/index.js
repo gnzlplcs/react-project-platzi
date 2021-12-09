@@ -2,7 +2,7 @@ import React from 'react';
 
 function EmptyToDos() {
   return (
-    <p>¡Listo! Crea tu primer to-do.</p>
+    <p>No tienes to-dos. ¡Crea uno!</p>
   );
 }
 
