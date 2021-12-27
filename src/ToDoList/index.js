@@ -9,8 +9,8 @@ function ToDoList(props) {
       {props.loading && props.onLoading()}
       {(!props.loading && !props.totalToDos) && props.onEmptyToDos()}
       {(!!props.totalToDos && !props.searchedToDos.length) && props.onEmptySearchResults(props.searchText)}
-      {props.searchedToDos.map(renderFunc)}
-      <ul>{props.children}</ul>
+      {(!props.loading && !props.error) && props.searchedToDos.map(renderFunc)}
+      {/* <ul>{props.children}</ul> */}
     </section>
   );
 }
