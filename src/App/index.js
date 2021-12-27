@@ -11,7 +11,7 @@ import { EmptyToDos } from "../EmptyToDos";
 import { ToDoForm } from "../ToDoForm";
 import { CreateToDoButton } from '../CreateToDoButton';
 import { Modal } from "../Modal";
-import { ChangeAlertWithStorageListener } from '../ChangeAlert';
+import { ChangeAlert } from '../ChangeAlert';
 
 function App() {
   const {
@@ -80,7 +80,7 @@ function App() {
         setOpenModal={setOpenModal}
       />
 
-        <ChangeAlertWithStorageListener
+        <ChangeAlert
           syncronize={syncronizeToDo}
         />
 
