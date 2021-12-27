@@ -11,6 +11,7 @@ import { EmptyToDos } from "../EmptyToDos";
 import { ToDoForm } from "../ToDoForm";
 import { CreateToDoButton } from '../CreateToDoButton';
 import { Modal } from "../Modal";
+import { ChangeAlertWithStorageListener } from '../ChangeAlert';
 
 function App() {
   const {
@@ -25,7 +26,8 @@ function App() {
     completedToDos,
     searchValue,
     setSearchValue,
-    addToDo
+    addToDo,
+    syncronizeToDo
   } = useToDos();
 
   return (
@@ -42,6 +44,7 @@ function App() {
           setSearchValue={setSearchValue}
         />
       </ToDoHeader>
+
       <ToDoList
         error={error}
         loading={loading}
@@ -72,9 +75,15 @@ function App() {
           ></ToDoForm>
         </Modal>
       )}
+
       <CreateToDoButton
         setOpenModal={setOpenModal}
       />
+
+        <ChangeAlertWithStorageListener
+          syncronize={syncronizeToDo}
+        />
+
     </React.Fragment>
   );
 }

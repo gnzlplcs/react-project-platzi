@@ -5,6 +5,7 @@ function useToDos() {
   const {
     item: toDos,
     saveItem: saveToDos,
+    syncronizeItem: syncronizeToDo,
     loading,
     error,
   } = useLocalStorage('TODOS_V1', []);
@@ -63,6 +64,7 @@ function useToDos() {
       deleteToDo,
       openModal,
       setOpenModal,
+      syncronizeToDo
     }
   );
 }
